@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Kit — 20 Exchange Place · IKEA Shopping Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12213A;
+    --blue:#0E3A73;
+    --yellow:#FFCF3F;
+    --paper:#FFFFFF;
+    --wash:#F5F6F8;
+    --meta:#5D6878;
+    --line:#E4E7EC;
+    --pick:#0E3A73;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
+  a{color:var(--blue)}
+  img{display:block;max-width:100%}
+
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+
+  /* Masthead */
+  header{border-bottom:3px solid var(--ink);padding:42px 0 30px;background:var(--paper)}
+  .eyebrow{font:600 12px/1 'Inter';letter-spacing:.16em;text-transform:uppercase;color:var(--meta)}
+  h1{font:900 clamp(34px,6vw,60px)/1.02 'Archivo';letter-spacing:-.02em;margin:12px 0 6px}
+  h1 .addr{color:var(--blue)}
+  .lede{max-width:640px;color:var(--meta);font-size:16px;margin-top:12px}
+  .brief{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .brief span{font:600 12px/1 'Inter';padding:7px 11px;border:1.5px solid var(--ink);border-radius:100px}
+
+  /* Receipt summary */
+  .receipt{background:var(--wash);border:1.5px solid var(--ink);border-radius:12px;margin:34px auto 0;max-width:560px;padding:22px 26px;font-variant-numeric:tabular-nums}
+  .receipt h2{font:900 15px/1 'Archivo';letter-spacing:.1em;text-transform:uppercase;text-align:center;margin-bottom:4px}
+  .receipt .sub{text-align:center;font-size:12px;color:var(--meta);margin-bottom:14px}
+  .receipt table{width:100%;border-collapse:collapse;font-size:14px}
+  .receipt td{padding:5px 0;border-bottom:1px dashed #C7CCD5}
+  .receipt td:last-child{text-align:right;font-weight:600;white-space:nowrap}
+  .receipt tr.total td{border-bottom:none;border-top:2px solid var(--ink);font:700 17px 'Inter';padding-top:10px}
+  .receipt .note{font-size:12px;color:var(--meta);margin-top:12px;text-align:center}
+
+  /* Section headers */
+  section{padding:44px 0 8px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:26px}
+  .sec-head .no{font:900 15px 'Archivo';color:#fff;background:var(--ink);padding:5px 9px;border-radius:6px}
+  .sec-head h2{font:900 clamp(22px,3.4vw,30px)/1 'Archivo';letter-spacing:-.01em}
+  .sec-head .hint{margin-left:auto;font-size:13px;color:var(--meta);text-align:right}
+
+  /* Product cards */
+  .card{display:grid;grid-template-columns:340px 1fr;gap:0;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:22px;background:var(--paper)}
+  .card.pick{border-color:var(--ink);border-width:2px}
+  .card .photo{background:var(--wash);position:relative;min-height:250px}
+  .card .photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+  .tag{position:absolute;top:12px;left:12px;font:800 11px/1 'Archivo';letter-spacing:.1em;text-transform:uppercase;padding:7px 10px;border-radius:6px;z-index:2}
+  .tag.pick-tag{background:var(--yellow);color:var(--ink)}
+  .tag.alt-tag{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+  .card .body{padding:22px 26px;display:flex;flex-direction:column;gap:10px}
+  .card .top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+  .card h3{font:800 20px/1.15 'Archivo'}
+  .card h3 small{display:block;font:500 13px 'Inter';color:var(--meta);margin-top:3px}
+  .price{margin-left:auto;font:800 22px 'Archivo';background:var(--yellow);padding:6px 12px;border-radius:8px;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .price s{font:600 13px 'Inter';color:#7a6a1f;margin-right:6px}
+  .stars{font-size:13px;color:var(--meta);font-weight:600}
+  .stars b{color:var(--ink)}
+  .why{font-size:14.5px;color:#2b3648}
+  .specs{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .specs span{font-size:12px;font-weight:600;color:var(--meta);background:var(--wash);border:1px solid var(--line);padding:4px 9px;border-radius:100px}
+  .card .cta{margin-top:auto;padding-top:10px}
+  .btn{display:inline-block;font:700 14px 'Inter';color:#fff;background:var(--blue);padding:11px 20px;border-radius:9px;text-decoration:none}
+  .btn:hover{background:#0a2c58}
+  .btn.ghost{color:var(--blue);background:transparent;border:1.5px solid var(--blue);margin-left:8px}
+  .btn.ghost:hover{background:var(--wash)}
+
+  .alt-row{font-size:14px;color:var(--meta);margin:-6px 0 26px;padding:12px 16px;background:var(--wash);border-radius:10px}
+  .alt-row b{color:var(--ink)}
+
+  /* Extras */
+  .extras{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:10px}
+  .extras .x{border:1.5px solid var(--line);border-radius:12px;padding:16px 18px}
+  .extras .x h4{font:800 15px 'Archivo';margin-bottom:6px}
+  .extras .x p{font-size:13.5px;color:var(--meta)}
+  .extras .x a{font-weight:600;font-size:13.5px}
+
+  /* Practical notes */
+  .notes{background:var(--ink);color:#E8ECF3;border-radius:16px;padding:28px 30px;margin:40px 0 14px}
+  .notes h2{font:900 20px 'Archivo';color:#fff;margin-bottom:14px}
+  .notes p{font-size:14.5px;margin-bottom:10px}
+  .notes b{color:var(--yellow)}
+  .notes a{color:#AFC6E8}
+
+  footer{padding:22px 0 44px;font-size:12.5px;color:var(--meta)}
+
+  @media (max-width:760px){
+    .card{grid-template-columns:1fr}
+    .card .photo{min-height:230px;position:relative}
+    .card .photo img{position:relative;height:230px}
+    .price{margin-left:0}
+    .sec-head .hint{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">IKEA shopping guide · New York · August 2026</p>
+    <h1>The Studio Kit<br><span class="addr">20 Exchange Place</span></h1>
+    <p class="lede">Everything to furnish Siddarth's first apartment in FiDi — chosen for a studio floor plan, mid-range budget, and pieces that survive daily use (and the next move). Every price and rating below was pulled from IKEA US in August 2026; tap any card to open the live product page.</p>
+    <div class="brief">
+      <span>Queen bed w/ storage</span><span>Real mattress</span><span>WFH corner</span><span>Small sofa</span><span>Dining for 2</span><span>Not the cheapest tier</span>
+    </div>
+
+    <div class="receipt">
+      <h2>Recommended cart</h2>
+      <p class="sub">One of each pick below</p>
+      <table>
+        <tr><td>MALM storage bed (Queen)</td><td>$549.00</td></tr>
+        <tr><td>VALEVÅG mattress (Queen, medium firm)</td><td>$399.00</td></tr>
+        <tr><td>MICKE desk</td><td>$99.99</td></tr>
+        <tr><td>FLINTAN office chair</td><td>$99.99</td></tr>
+        <tr><td>HAUGA cabinet</td><td>$159.00</td></tr>
+        <tr><td>KIVIK loveseat</td><td>$849.00</td></tr>
+        <tr><td>VIHALS dining set for 2</td><td>$169.99</td></tr>
+        <tr class="total"><td>Total</td><td>$2,325.97</td></tr>
+      </table>
+      <p class="note">Swap to the budget alternatives and the same list lands near <b>$1,800</b>. Prices exclude tax &amp; delivery.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ══════════ 01 SLEEP ══════════ -->
+<section id="sleep">
+  <div class="sec-head"><span class="no">01</span><h2>Sleep — bed with storage</h2><p class="hint">Storage under the bed = the closet a FiDi studio doesn't have</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://www.ikea.com/us/en/images/products/malm-storage-bed-white__1154392_pe886041_s5.jpg" alt="MALM storage bed, white, queen">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>MALM Storage Bed <small>Queen · White (also dark-brown veneer) · lift-up ottoman base</small></h3>
+        <span class="price">$549.00</span>
+      </div>
+      <p class="stars"><b>4.6★</b> · 1,373 reviews — the highest-rated queen storage bed IKEA sells</p>
+      <p class="why">The whole bed base lifts on gas pistons, opening a suitcase-swallowing storage bay the full size of the mattress (60"×80"×10.6" deep). No drawers to block — perfect when the bed sits against a wall, which it will in a studio. Slats and center beam included. Reviewers repeatedly mention living in small NYC-type apartments with this exact bed.</p>
+      <div class="specs"><span>83.5" L × 66" W</span><span>Slatted base included</span><span>Mattress max 110 lb (VALEVÅG ok)</span><span>2-person assembly / TaskRabbit</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.ikea.com/us/en/p/malm-storage-bed-white-70404818/" target="_blank" rel="noopener">View on IKEA — $549 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="photo">
+      <span class="tag alt-tag">Budget alternative</span>
+      <img src="https://www.ikea.com/us/en/images/products/brimnes-bed-frame-with-storage-headboard-white-luroey__1101935_pe866863_s5.jpg" alt="BRIMNES bed frame with storage and headboard, white, queen">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>BRIMNES Bed + Storage + Headboard <small>Queen · White, black or gray · 4 drawers + headboard shelves</small></h3>
+        <span class="price"><s>$549</s>$449.00</span>
+      </div>
+      <p class="stars"><b>4.2★</b> · 1,192 reviews · on sale through Sep 7, 2026</p>
+      <p class="why">Four big rolling drawers under the bed plus a headboard with hidden shelving and cable holes for phone charging — a lot of function for the money. Caveat for a studio: two drawers open on each side, so one side's drawers are lost if the bed is pushed long-side against a wall. Headboard must be anchored to the wall.</p>
+      <div class="specs"><span>95¼" L × 62¼" W</span><span>Slats included</span><span>Sale price — IKEA Family</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.ikea.com/us/en/p/brimnes-bed-frame-with-storage-headboard-white-luroey-s59129609/" target="_blank" rel="noopener">View on IKEA — $449 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 02 MATTRESS ══════════ -->
+<section id="mattress">
+  <div class="sec-head"><span class="no">02</span><h2>Mattress</h2><p class="hint">10-yr limited warranty + 90-day exchange on all IKEA mattresses</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://www.ikea.com/us/en/images/products/valevag-pocket-spring-mattress-medium-firm-white__1142895_pe881392_s5.jpg" alt="VALEVÅG pocket spring mattress, medium firm, queen">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>VALEVÅG Pocket Spring Mattress <small>Queen · Medium firm (also firm / extra firm) · 9½" thick</small></h3>
+        <span class="price">$399.00</span>
+      </div>
+      <p class="stars"><b>4.0★</b> · 3,471 reviews · IKEA best seller</p>
+      <p class="why">The sweet spot in IKEA's range: individually wrapped pocket springs, 5 comfort zones, reinforced edges, and roll-packed so it fits in an elevator. Medium firm suits most sleepers; a 22-year-old's back will thank you versus the thin foam options. Weighs ~77 lb and its ≤110 lb keeps it compatible with the MALM lift-up base. Pair with a NISSEHOLM topper later if he wants it plusher.</p>
+      <div class="specs"><span>90-day home trial (exchange)</span><span>10-yr limited warranty</span><span>Allow 72h to expand</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.ikea.com/us/en/p/valevag-pocket-spring-mattress-medium-firm-white-50511857/" target="_blank" rel="noopener">View on IKEA — $399 →</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="alt-row"><b>Cheaper:</b> ÅSVANG foam mattress, Queen — <b>$199</b>, 4¾" foam, fine as a stopgap but thin for nightly adult use → <a href="https://www.ikea.com/us/en/p/asvang-foam-mattress-medium-firm-white-20481404/" target="_blank" rel="noopener">product page</a>. <b>Cushier hybrid:</b> VESTERÖY pocket spring, Queen (~$299) → <a href="https://www.ikea.com/us/en/p/vesteroey-pocket-spring-mattress-medium-firm-white-10511901/" target="_blank" rel="noopener">product page</a>. If he can visit IKEA Brooklyn, lying on them for 10 minutes beats any review.</p>
+</section>
+
+<!-- ══════════ 03 WORK ══════════ -->
+<section id="work">
+  <div class="sec-head"><span class="no">03</span><h2>Work — desk &amp; chair</h2><p class="hint">Bloomberg engineers still code at home sometimes</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://www.ikea.com/us/en/images/products/micke-desk-white__0736018_pe740345_s5.jpg" alt="MICKE desk, white, 41 inch">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>MICKE Desk <small>41⅜" × 19⅝" · White, black-brown, or white/anthracite</small></h3>
+        <span class="price">$99.99</span>
+      </div>
+      <p class="stars"><b>4.5★</b> · 6,379 reviews · IKEA best seller</p>
+      <p class="why">The classic small-apartment desk: compact footprint, a drawer, adjustable side shelves, and a built-in cable channel at the back — enough for a laptop + external monitor without dominating the room. Same-height MICKE drawer units can extend it later. Holds 110 lb.</p>
+      <div class="specs"><span>Fits a 27" monitor</span><span>Cable outlet in back</span><span>Solo assembly ~1 hr</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.ikea.com/us/en/p/micke-desk-white-80213074/" target="_blank" rel="noopener">View on IKEA — $99.99 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://www.ikea.com/us/en/images/products/flintan-office-chair-black__1007236_pe825956_s5.jpg" alt="FLINTAN office chair, black">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>FLINTAN Office Chair <small>Black or beige · mesh back · optional armrests (+$20)</small></h3>
+        <span class="price">$99.99</span>
+      </div>
+      <p class="stars"><b>4.4★</b> · 1,321 reviews · contract grade, 10-yr warranty</p>
+      <p class="why">Genuinely ergonomic for the price: lumbar support, synchronized tilt with auto tension, tilt lock, breathable mesh back, and a washable seat cover. Tested to 276 lb and certified to office-furniture standards (ANSI/BIFMA) — this is the "not cheap junk" tier without paying MARKUS money.</p>
+      <div class="specs"><span>Seat 17¾–22⅞" high</span><span>Casters lock when empty</span><span>15-min assembly</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.ikea.com/us/en/p/flintan-office-chair-black-90489029/" target="_blank" rel="noopener">View on IKEA — $99.99 →</a>
+        <a class="btn ghost" href="https://www.ikea.com/us/en/p/flintan-office-chair-with-armrests-black-s29424471/" target="_blank" rel="noopener">With armrests</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="alt-row"><b>Upgrades:</b> MARKUS high-back office chair (~$230, the long-hours favorite) and the bigger LAGKAPTEN/ALEX drawer desk (55", ~$250) — both on the <a href="https://www.ikea.com/us/en/cat/office-chairs-20654/" target="_blank" rel="noopener">office chairs</a> / <a href="https://www.ikea.com/us/en/cat/desks-computer-desks-20649/" target="_blank" rel="noopener">desks</a> pages.</p>
+</section>
+
+<!-- ══════════ 04 STORAGE ══════════ -->
+<section id="storage">
+  <div class="sec-head"><span class="no">04</span><h2>Storage — cabinet</h2><p class="hint">Closed doors keep a studio looking tidy</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://www.ikea.com/us/en/images/products/hauga-cabinet-with-2-doors-white__0914104_pe783847_s5.jpg" alt="HAUGA cabinet with 2 doors, white">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>HAUGA Cabinet with 2 Doors <small>27½" × 18⅛" × 45⅝" · White or gray</small></h3>
+        <span class="price">$159.00</span>
+      </div>
+      <p class="stars"><b>4.7★</b> · 414 reviews</p>
+      <p class="why">A do-anything sideboard: dishes and pantry overflow near the kitchenette, or sweaters and linens by the bed — the doors hide everything and the top shelf is display/drop-zone space. Reviewers use it exactly this way in small apartments. Adjustable shelves; anchors to the wall (required).</p>
+      <div class="specs"><span>2 adjustable shelves</span><span>40 lb per shelf</span><span>Matches HAUGA dining set below</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.ikea.com/us/en/p/hauga-cabinet-with-2-doors-white-30519637/" target="_blank" rel="noopener">View on IKEA — $159 →</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="alt-row"><b>Need taller?</b> The HAUGA high cabinet (78" tall, 4.7★, 808 reviews) nearly doubles the capacity in the same 27½" footprint → <a href="https://www.ikea.com/us/en/p/hauga-high-cabinet-with-2-doors-white-20415046/" target="_blank" rel="noopener">product page</a>. Also browse the modular <a href="https://www.ikea.com/us/en/cat/hauga-series-48956/" target="_blank" rel="noopener">full HAUGA series</a> (dressers, wardrobes) to add matching pieces later.</p>
+</section>
+
+<!-- ══════════ 05 LOUNGE ══════════ -->
+<section id="lounge">
+  <div class="sec-head"><span class="no">05</span><h2>Lounge — small sofa</h2><p class="hint">74" loveseat is the studio sweet spot</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://www.ikea.com/us/en/images/products/kivik-loveseat-gunnared-beige__0781409_pe760736_s5.jpg" alt="KIVIK loveseat, Gunnared beige">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>KIVIK Loveseat <small>74¾" W × 37⅜" D · 12 fabric options (beige, gray, blue, green…)</small></h3>
+        <span class="price">$849.00</span>
+      </div>
+      <p class="stars"><b>4.4★</b> · 409 reviews · 10-yr warranty</p>
+      <p class="why">The "buy once" small sofa: pocket springs + high-resilience foam (not just slab foam), deep enough to nap on, with wide flat armrests that double as a laptop perch. Covers zip off and machine-wash — critical for a first apartment — and replacement covers are sold separately, so it can be refreshed instead of replaced. Fits studio living rooms; one reviewer: "fits in our tiny apartment."</p>
+      <div class="specs"><span>Machine-washable cover</span><span>55,000-cycle fabric</span><span>Chaise can be added later</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.ikea.com/us/en/p/kivik-loveseat-gunnared-beige-s69499681/" target="_blank" rel="noopener">View on IKEA — $849 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="photo">
+      <span class="tag alt-tag">If guests will stay over</span>
+      <img src="https://www.ikea.com/us/en/images/products/friheten-sleeper-sectional-3-seat-w-storage-skiftebo-dark-gray__1089881_pe861727_s5.jpg" alt="FRIHETEN sleeper sectional with storage, dark gray">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>FRIHETEN Sleeper Sectional w/ Storage <small>90½" W · converts to a full-size bed · chaise storage box</small></h3>
+        <span class="price">$999.00</span>
+      </div>
+      <p class="stars"><b>3.8★</b> · 2,749 reviews — loved for function, mixed on long-term cushions</p>
+      <p class="why">Sofa + guest bed + storage trunk in one — the classic NYC-studio move when parents (or you!) visit. Pulls out to a 55"×80" bed in seconds. It is big (7½ ft wide), and reviews note cushions soften after heavy years, so choose it only if the guest-bed function matters; otherwise KIVIK is the better sofa.</p>
+      <div class="specs"><span>Sleeps 2</span><span>Chaise flips left or right</span><span>Storage under chaise</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.ikea.com/us/en/p/friheten-sleeper-sectional-3-seat-w-storage-skiftebo-dark-gray-s69216757/" target="_blank" rel="noopener">View on IKEA — $999 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 06 DINE ══════════ -->
+<section id="dine">
+  <div class="sec-head"><span class="no">06</span><h2>Dine — table for two</h2><p class="hint">29" square tucks into any corner</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://www.ikea.com/us/en/images/products/vihals-vihals-table-and-2-chairs-white-white-white-tibbleby-beige-gray__1388801_pe964966_s5.jpg" alt="VIHALS table and 2 chairs, white with beige-gray padded chairs">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>VIHALS Table + 2 Chairs <small>29⅛" square · white table · padded beige-gray chairs</small></h3>
+        <span class="price">$169.99</span>
+      </div>
+      <p class="stars"><b>4.8★</b> · the best-rated 2-seat set IKEA currently sells</p>
+      <p class="why">A complete, matched dining corner in one box-set: compact square table plus two upholstered chairs that are comfortable enough for a long dinner or an overflow work seat. Clean modern lines that won't fight the rest of the furniture.</p>
+      <div class="specs"><span>Seats 2 (squeezes 3)</span><span>Also all-white or green chairs</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.ikea.com/us/en/p/vihals-vihals-table-and-2-chairs-white-white-white-tibbleby-beige-gray-s69599435/" target="_blank" rel="noopener">View on IKEA — $169.99 →</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="alt-row"><b>Matches the cabinet:</b> HAUGA table + 2 chairs, gray or white — <b>$189.99</b>, 4.6★ → <a href="https://www.ikea.com/us/en/p/hauga-hauga-table-and-2-chairs-gray-gray-s19574908/" target="_blank" rel="noopener">product page</a>. <b>Nicer wood upgrade:</b> LISABO ash table + upholstered chairs — <b>$379.99</b>, 4.9★ → <a href="https://www.ikea.com/us/en/p/lisabo-lisabo-table-and-2-chairs-ash-tallmyra-white-black-s69554837/" target="_blank" rel="noopener">product page</a>. <b>Expands for guests:</b> NORDVIKEN drop-leaf + 2 chairs — <b>$279.99</b> on clearance → <a href="https://www.ikea.com/us/en/p/nordviken-nordviken-table-and-2-chairs-black-black-s89305074/" target="_blank" rel="noopener">product page</a>. Full list: <a href="https://www.ikea.com/us/en/cat/dining-sets-up-to-2-seats-36209/" target="_blank" rel="noopener">all 2-seat dining sets</a>.</p>
+</section>
+
+<!-- ══════════ 07 DON'T FORGET ══════════ -->
+<section id="extras">
+  <div class="sec-head"><span class="no">07</span><h2>Don't forget</h2><p class="hint">The ~$200 of small stuff every first apartment needs</p></div>
+  <div class="extras">
+    <div class="x"><h4>Bedside table</h4><p>A small nightstand for phone + glass of water. <a href="https://www.ikea.com/us/en/cat/nightstands-20656/" target="_blank" rel="noopener">Nightstands →</a></p></div>
+    <div class="x"><h4>Bedding</h4><p>Fitted sheet, duvet + cover, 2 pillows, mattress protector (~$100–150 total). <a href="https://www.ikea.com/us/en/cat/beds-mattresses-bm001/" target="_blank" rel="noopener">Bedding →</a></p></div>
+    <div class="x"><h4>Lighting</h4><p>Studio ceiling lights are grim — one floor lamp + one desk lamp transform the room. <a href="https://www.ikea.com/us/en/cat/lighting-li001/" target="_blank" rel="noopener">Lamps →</a></p></div>
+    <div class="x"><h4>Rug</h4><p>Anchors the "living room" zone and quiets the downstairs neighbors. <a href="https://www.ikea.com/us/en/cat/rugs-rm001/" target="_blank" rel="noopener">Rugs →</a></p></div>
+    <div class="x"><h4>Kitchen starter</h4><p>365+ cookware, dinnerware for 4, FÖRSLUTAS containers for office lunches. <a href="https://www.ikea.com/us/en/cat/kitchenware-tableware-ki001/" target="_blank" rel="noopener">Kitchen →</a></p></div>
+    <div class="x"><h4>Full-length mirror</h4><p>For pre-office checks; leaning mirrors also make the studio feel bigger. <a href="https://www.ikea.com/us/en/cat/mirrors-20585/" target="_blank" rel="noopener">Mirrors →</a></p></div>
+  </div>
+</section>
+
+<!-- ══════════ PRACTICAL ══════════ -->
+<div class="notes">
+  <h2>Buying it in NYC — practical notes for 20 Exchange Place</h2>
+  <p><b>Delivery, not car.</b> Order everything online in one cart from IKEA Brooklyn (Red Hook); flat-rate home delivery is far easier than hauling boxes downtown. The MALM bed alone is 4 packages at ~60 lb each.</p>
+  <p><b>Building rules first.</b> 20 Exchange Place is a large doorman high-rise — before scheduling, ask the management office about delivery windows, freight elevator booking, and whether they require a Certificate of Insurance (COI) from the delivery company. IKEA's carriers can usually provide one, but it needs arranging in advance.</p>
+  <p><b>Assembly.</b> Budget ~$150–250 for TaskRabbit assembly of the bed + sofa (bookable in the IKEA checkout). The desk, chair, and dining set are easy one-person jobs for a software engineer with an allen key.</p>
+  <p><b>Join IKEA Family (free) before checkout.</b> It unlocks member pricing (the BRIMNES bed's $100 discount, for example) and a 90-day low-price guarantee.</p>
+  <p><b>Returns are generous:</b> 365 days on furniture, and mattresses get a 90-day comfort exchange — so the VALEVÅG is a low-risk call.</p>
+</div>
+
+<footer>
+  Prices, ratings, and sale windows verified on ikea.com/us on August 9, 2026 (sale prices noted where applicable, e.g. BRIMNES $449 through Sep 7, 2026). Prices change — the linked product pages are always authoritative. Product photos © Inter IKEA Systems B.V., loaded directly from ikea.com.
+</footer>
+
+</div>
+</body>
+</html>
