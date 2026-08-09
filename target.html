@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siddu's Studio Apartment · Target Shopping Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#26262B;
+    --red:#CC0000;
+    --deep:#8C0000;
+    --paper:#FFFFFF;
+    --wash:#F6F4F4;
+    --meta:#6B6B73;
+    --line:#E6E3E3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
+  a{color:var(--deep)}
+  img{display:block;max-width:100%}
+
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+
+  /* Masthead */
+  header{border-bottom:3px solid var(--ink);padding:42px 0 30px;background:var(--paper)}
+  .eyebrow{font:600 12px/1 'Inter';letter-spacing:.16em;text-transform:uppercase;color:var(--meta)}
+  h1{font:900 clamp(34px,6vw,60px)/1.02 'Archivo';letter-spacing:-.02em;margin:12px 0 6px}
+  h1 .addr{color:var(--red)}
+  .lede{max-width:640px;color:var(--meta);font-size:16px;margin-top:12px}
+  .brief{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .brief span{font:600 12px/1 'Inter';padding:7px 11px;border:1.5px solid var(--ink);border-radius:100px}
+  .crosslink{margin-top:18px;font-size:14px;background:var(--wash);border-left:4px solid var(--red);padding:12px 16px;border-radius:0 8px 8px 0}
+  .crosslink b{color:var(--ink)}
+
+  /* Receipt summary */
+  .receipt{background:var(--wash);border:1.5px solid var(--ink);border-radius:12px;margin:34px auto 0;max-width:580px;padding:22px 26px;font-variant-numeric:tabular-nums}
+  .receipt h2{font:900 15px/1 'Archivo';letter-spacing:.1em;text-transform:uppercase;text-align:center;margin-bottom:4px}
+  .receipt .sub{text-align:center;font-size:12px;color:var(--meta);margin-bottom:14px}
+  .receipt table{width:100%;border-collapse:collapse;font-size:14px}
+  .receipt td{padding:5px 0;border-bottom:1px dashed #CFC9C9}
+  .receipt td:last-child{text-align:right;font-weight:600;white-space:nowrap}
+  .receipt tr.total td{border-bottom:none;border-top:2px solid var(--ink);font:700 17px 'Inter';padding-top:10px}
+  .receipt .note{font-size:12px;color:var(--meta);margin-top:12px;text-align:center}
+
+  /* Section headers */
+  section{padding:44px 0 8px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:26px}
+  .sec-head .no{font:900 15px 'Archivo';color:#fff;background:var(--red);padding:5px 9px;border-radius:6px}
+  .sec-head h2{font:900 clamp(22px,3.4vw,30px)/1 'Archivo';letter-spacing:-.01em}
+  .sec-head .hint{margin-left:auto;font-size:13px;color:var(--meta);text-align:right}
+
+  /* Product cards */
+  .card{display:grid;grid-template-columns:340px 1fr;gap:0;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:22px;background:var(--paper)}
+  .card.pick{border-color:var(--ink);border-width:2px}
+  .card .photo{background:var(--wash);position:relative;min-height:250px}
+  .card .photo img{width:100%;height:100%;object-fit:contain;position:absolute;inset:0;padding:14px}
+  .tag{position:absolute;top:12px;left:12px;font:800 11px/1 'Archivo';letter-spacing:.1em;text-transform:uppercase;padding:7px 10px;border-radius:6px;z-index:2}
+  .tag.pick-tag{background:var(--red);color:#fff}
+  .tag.alt-tag{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+  .card .body{padding:22px 26px;display:flex;flex-direction:column;gap:10px}
+  .card .top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+  .card h3{font:800 20px/1.15 'Archivo'}
+  .card h3 small{display:block;font:500 13px 'Inter';color:var(--meta);margin-top:3px}
+  .price{margin-left:auto;font:800 22px 'Archivo';background:var(--red);color:#fff;padding:6px 12px;border-radius:8px;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .price s{font:600 13px 'Inter';color:#FFC9C9;margin-right:6px}
+  .stars{font-size:13px;color:var(--meta);font-weight:600}
+  .stars b{color:var(--ink)}
+  .why{font-size:14.5px;color:#3A3A40}
+  .specs{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .specs span{font-size:12px;font-weight:600;color:var(--meta);background:var(--wash);border:1px solid var(--line);padding:4px 9px;border-radius:100px}
+  .card .cta{margin-top:auto;padding-top:10px}
+  .btn{display:inline-block;font:700 14px 'Inter';color:#fff;background:var(--red);padding:11px 20px;border-radius:9px;text-decoration:none}
+  .btn:hover{background:var(--deep)}
+  .btn.ghost{color:var(--deep);background:transparent;border:1.5px solid var(--deep);margin-left:8px}
+  .btn.ghost:hover{background:var(--wash)}
+
+  .alt-row{font-size:14px;color:var(--meta);margin:-6px 0 26px;padding:12px 16px;background:var(--wash);border-radius:10px}
+  .alt-row b{color:var(--ink)}
+
+  .callout{border:2px solid var(--red);background:#FFF6F6;border-radius:12px;padding:16px 20px;margin:0 0 24px;font-size:14.5px}
+  .callout b{color:var(--deep)}
+
+  /* Extras */
+  .extras{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:10px}
+  .extras .x{border:1.5px solid var(--line);border-radius:12px;padding:16px 18px}
+  .extras .x h4{font:800 15px 'Archivo';margin-bottom:6px}
+  .extras .x p{font-size:13.5px;color:var(--meta)}
+  .extras .x a{font-weight:600;font-size:13.5px}
+  .extras .x .amt{font:800 15px 'Archivo';color:var(--ink);display:block;margin-bottom:4px}
+
+  /* Practical notes */
+  .notes{background:var(--ink);color:#EDEAEA;border-radius:16px;padding:28px 30px;margin:40px 0 14px}
+  .notes h2{font:900 20px 'Archivo';color:#fff;margin-bottom:14px}
+  .notes p{font-size:14.5px;margin-bottom:10px}
+  .notes b{color:#FF8A8A}
+  .notes a{color:#FFB3B3}
+
+  footer{padding:22px 0 44px;font-size:12.5px;color:var(--meta)}
+
+
+  /* Brand bar + page switcher */
+  .brandbar{border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:30}
+  .brandbar-in{display:flex;align-items:center;gap:14px;padding-top:11px;padding-bottom:11px}
+  .brandbar .logo{flex:none;display:block}
+  .switch{margin-left:auto;display:flex;gap:7px}
+  .switch a{font:700 13px 'Inter';text-decoration:none;padding:8px 15px;border-radius:100px;border:1.5px solid var(--line);color:var(--meta);white-space:nowrap}
+  .switch a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .switch a:not(.on):hover{border-color:var(--ink);color:var(--ink)}
+  @media (max-width:520px){
+    .switch a{padding:7px 11px;font-size:12px}
+    .brandbar-in{gap:8px}
+  }
+
+  @media (max-width:760px){
+    .card{grid-template-columns:1fr}
+    .card .photo{min-height:230px;position:relative}
+    .card .photo img{position:relative;height:230px}
+    .price{margin-left:0}
+    .sec-head .hint{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="wrap brandbar-in">
+    <svg class="logo" viewBox="0 0 100 100" width="40" height="40" role="img" aria-label="Target">
+  <circle cx="50" cy="50" r="49" fill="#CC0000"/>
+  <circle cx="50" cy="50" r="32" fill="#FFFFFF"/>
+  <circle cx="50" cy="50" r="16" fill="#CC0000"/>
+</svg>
+    <nav class="switch"><a href="ikea.html">IKEA guide</a><a class="on" href="target.html">Target guide</a></nav>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Target shopping guide · New York · August 2026</p>
+    <h1>The Studio Kit<br><span class="addr">Siddu's Studio Apartment</span></h1>
+    <p class="lede">The same brief, shopped at Target instead of IKEA — a studio floor plan, a mid-range budget, and pieces that survive daily use. Every price, star rating and review count below was pulled from Target.com on August 9, 2026. Tap any card to open the live product page.</p>
+    <div class="brief">
+      <span>Queen bed + under-bed storage</span><span>Real hybrid mattress</span><span>WFH corner</span><span>Small sofa</span><span>Dining for 2</span><span>Not the cheapest tier</span>
+    </div>
+
+    <div class="crosslink">
+      <b>Comparing against IKEA?</b> The IKEA version of this same list is at <a href="ikea.html">the IKEA studio guide</a>. Short version: Target comes in roughly <b>$360 cheaper</b> on the core furniture, wins decisively on the desk, chair and dining table, and loses badly on one thing — storage beds. More on that below.
+    </div>
+
+    <div class="receipt">
+      <h2>Recommended cart</h2>
+      <p class="sub">One of each pick below</p>
+      <table>
+        <tr><td>Zinus Vivek platform bed (Queen)</td><td>$270.99</td></tr>
+        <tr><td>Sealy Dreamlife 10" hybrid mattress (Queen)</td><td>$479.99</td></tr>
+        <tr><td>Threshold Loring desk</td><td>$104.00</td></tr>
+        <tr><td>Flash Furniture high-back mesh chair</td><td>$136.94</td></tr>
+        <tr><td>Threshold Elloree cabinet</td><td>$160.00</td></tr>
+        <tr><td>Serta Palisades 61" loveseat</td><td>$382.99</td></tr>
+        <tr><td>Threshold Clarksburg table + Hassell chairs</td><td>$430.00</td></tr>
+        <tr class="total"><td>Total</td><td>$1,964.91</td></tr>
+      </table>
+      <p class="note">Swap in the budget alternatives and the same list lands near <b>$1,660</b>. Prices exclude tax &amp; delivery. A Target Circle Card takes another 5% off — about <b>$98</b> on this cart.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ══════════ 01 SLEEP ══════════ -->
+<section id="sleep">
+  <div class="sec-head"><span class="no">01</span><h2>Sleep — bed frame</h2><p class="hint">Height under the bed is the whole game here</p></div>
+
+  <div class="callout">
+    <b>Read this before you shop beds at Target.</b> Target currently has no good queen bed with built-in drawers from a brand worth trusting. Novogratz — the one reputable line that made them — has pulled its storage beds; only two Novogratz beds remain on the site and neither has storage. What's left in "queen storage bed" search results is marketplace dropship stock: no-name brands, 3-review listings, and $599-slashed-to-$149 pricing. IKEA genuinely wins this category.<br><br>
+    So the play at Target is different, and honestly it's the more durable one: buy a <b>tall solid-wood platform bed</b> and let cheap under-bed bins do the storage work. No drawer glides to break, bins cost $15 each, and you can reconfigure whenever. The picks below are chosen on under-bed clearance.
+  </div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_c4dadc25-2e3f-49bd-87a6-d87c6c8419c1" alt="Zinus Vivek wood platform bed with headboard, queen, antique wood">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>Zinus Vivek Wood Platform Bed w/ Headboard <small>Queen · Antique wood / espresso · 8.46" under-bed clearance</small></h3>
+        <span class="price">$270.99</span>
+      </div>
+      <p class="stars"><b>4.84★</b> · 84 reviews — the highest-rated queen bed frame Target sells at this price</p>
+      <p class="why">The 8.46" clearance is the highest of any well-reviewed frame on the site, which is exactly what you want when the storage plan is bins rather than drawers — standard 6" under-bed containers slide in with room to spare. It ships fully assembled in one box with a ratchet tool included, 14 wood slats with non-slip tape so the mattress doesn't creep, and a headboard, which matters more than it sounds in a studio: it visually declares "this corner is the bedroom." Reviewers consistently call it solid and quiet, and at 59.4 lb one person can wrestle the box out of an elevator.</p>
+      <div class="specs"><span>79.5" L × 59.5" W × 12" H</span><span>14 wood slats, no box spring</span><span>Ratchet tool included</span><span>5-yr limited warranty</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/queen-vivek-wood-platform-bed-with-headboard-antique-wood-zinus/-/A-54571630" target="_blank" rel="noopener">View on Target — $270.99 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="photo">
+      <span class="tag alt-tag">Budget alternative</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_e02475fd-0e10-423f-b5d6-d8e26ea32a57" alt="Zinus Wen 12 inch deluxe wood platform bed frame, queen, cherry">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>Zinus Wen 12" Deluxe Wood Platform Bed <small>Queen · Deep cherry · no headboard · 700 lb capacity</small></h3>
+        <span class="price">$241.99</span>
+      </div>
+      <p class="stars"><b>4.78★</b> · 95 reviews — reviewers' phrase of choice is "shockingly solid"</p>
+      <p class="why">Thirty dollars less, slightly more reviews, and a 700 lb weight rating that is frankly over-built for the money. The trade-off is real though: 6.3" of clearance instead of 8.46", which is the difference between under-bed bins sliding easily and having to fight them, and there's no headboard, so the bed reads more like a mattress on a box. Fine if he's putting the bed against a wall anyway.</p>
+      <div class="specs"><span>79.5" L × 59.5" W × 12" H</span><span>6.3" clearance</span><span>Pine frame, plywood slats</span><span>61.6 lb</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/queen-12-34-wen-deluxe-wood-platform-bed-frame-cherry-zinus/-/A-89654768" target="_blank" rel="noopener">View on Target — $241.99 →</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="alt-row"><b>Budget the bins too:</b> plan on roughly <b>$60–90</b> for four or five under-bed storage containers — Target's own Brightroom line covers this cheaply. Browse <a href="https://www.target.com/c/under-bed-storage-storage-organization-home/-/N-5xsyp" target="_blank" rel="noopener">under-bed storage →</a>. <b>If a drawer bed is non-negotiable,</b> buy the bed from IKEA (the MALM lift-up base at $549) and everything else here — that hybrid is a completely reasonable move.</p>
+</section>
+
+<!-- ══════════ 02 MATTRESS ══════════ -->
+<section id="mattress">
+  <div class="sec-head"><span class="no">02</span><h2>Mattress</h2><p class="hint">Check the return window per listing — it varies wildly</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_fcfc5554-42f9-450e-a139-c61ca1efa777" alt="Sealy Dreamlife 10 inch hybrid mattress, queen">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>Sealy Dreamlife 10" Hybrid Mattress <small>Queen · Medium firm · gel memory foam over pocket coils</small></h3>
+        <span class="price">$479.99</span>
+      </div>
+      <p class="stars"><b>4.7★</b> · 30 reviews · 10-year limited warranty · 90-day free returns</p>
+      <p class="why">This is the only true medium-firm pocket-coil hybrid from a top-tier legacy brand that lands inside budget and is actually in stock. The coil layer is the point: it gives edge support and holds its shape over five-plus years of nightly use in a way no all-foam mattress at this price will. Reviewers describe it as firm without being hard, report less morning back pain, and say it doesn't sleep hot — which matters in a studio with one window in August. Ships roll-packed at 79.6 lb, so it fits an elevator, but it's a two-person carry.</p>
+      <div class="specs"><span>10" thick</span><span>Medium firm</span><span>90-day returns</span><span>10-yr warranty</span><span>Boxed &amp; roll-packed</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/sealy-dreamlife-queen-10-34-hybrid-mattress/-/A-92507259" target="_blank" rel="noopener">View on Target — $479.99 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="photo">
+      <span class="tag alt-tag">Lowest-risk upgrade</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_ff10768d-c08d-4a40-8ddb-1081c13746d0" alt="Casper Element mattress, queen">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>The Casper Element Mattress <small>Queen · Medium firm · all-foam with perforated AirScape top layer</small></h3>
+        <span class="price"><s>$645</s>$516.00</span>
+      </div>
+      <p class="stars"><b>4.67★</b> · 2,810 reviews · <b>120-night risk-free trial</b> + Target's 90-day returns</p>
+      <p class="why">Nearly 3,000 reviews at 4.67 makes this the most thoroughly vetted mattress Target sells under $600, and the 120-night trial removes essentially all the risk for someone who has never picked a mattress before — if he hates it in month three, he still sends it back. The perforated AirScape foam is engineered specifically against the heat-trapping complaint that sinks cheap memory foam. Trade-off versus the Sealy: no coils, so weaker edge support when he sits on the side of the bed, which is a real consideration in a studio where the bed doubles as extra seating.</p>
+      <div class="specs"><span>10" thick</span><span>All-foam, CertiPUR-US</span><span>120-night trial</span><span>10-yr warranty</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/the-casper-element-mattress-queen/-/A-79822666" target="_blank" rel="noopener">View on Target — $516 →</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="alt-row"><b>Cheapest defensible option:</b> Signature Design by Ashley 12" Chime Hybrid, Queen — <b>$334.99</b>, and an extraordinary <b>4.6★ across 10,572 reviews</b> → <a href="https://www.target.com/p/signature-design-by-ashley-12-inch-chime-hybrid-innerspring-ultra-plush-queen-mattress/-/A-92434292" target="_blank" rel="noopener">product page</a>. Two honest warnings: it's <b>Ultra Plush, not medium firm</b>, and the recurring negative review theme is body indentations appearing within weeks. It also carries only a <b>30-day</b> return window rather than 90. Buy it if he wants soft and cheap; skip it if he wants back support. <b>Skip entirely:</b> Zinus mattresses are nearly all out of stock at Target right now, and Novaform is Costco-only.</p>
+</section>
+
+<!-- ══════════ 03 WORK ══════════ -->
+<section id="work">
+  <div class="sec-head"><span class="no">03</span><h2>Work — desk &amp; chair</h2><p class="hint">Target beats IKEA outright in this section</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_179e5fa9-f7ca-441d-b11a-aee71a298562" alt="Threshold Loring wood writing desk with drawers and charging station, oak">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>Loring Wood Writing Desk w/ Charging Station <small>Threshold™ · 42" × 20" · Oak (also black &amp; white) · 2 drawers</small></h3>
+        <span class="price"><s>$130</s>$104.00</span>
+      </div>
+      <p class="stars"><b>4.2★</b> · 3,138 reviews · 83% would recommend · Target owned brand = 1-year returns</p>
+      <p class="why">The built-in charging station is the thing that makes this the pick for a software engineer: two AC outlets and two USB ports live in a rear cubby that doubles as the cable channel, so the laptop brick, the monitor and the phone all plug in at the desk instead of trailing cords across a one-room apartment. At 42" × 20" it takes almost no floor while still fitting a laptop plus a 24–27" monitor. The top ships pre-assembled — you only bolt on the legs, which reviewers clock at 10–20 minutes. Recurring complaint is drawer hardware and veneer edges, so treat the drawers as light storage rather than a filing cabinet.</p>
+      <div class="specs"><span>42"W × 20"D × 29.9"H</span><span>2 AC outlets + 2 USB</span><span>Cable cubby</span><span>15-min assembly</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/loring-wood-writing-desk-with-drawers-and-charging-station-oak-threshold-8482/-/A-86806499" target="_blank" rel="noopener">View on Target — $104 →</a>
+        <a class="btn ghost" href="https://www.target.com/p/paulo-wood-writing-desk-with-drawer-threshold/-/A-14517908" target="_blank" rel="noopener">Cleaner-looking alt: Paulo, $150</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_40886fc4-1554-4078-8673-0c67c51f45b2" alt="Flash Furniture high back mesh ergonomic swivel office chair with flip-up arms">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>Flash Furniture High-Back Mesh Ergonomic Chair <small>Black · flip-up arms · built-in lumbar · 4" seat cushion</small></h3>
+        <span class="price">$136.94</span>
+      </div>
+      <p class="stars"><b>4.6★</b> · 35 reviews · Flash Furniture is a commercial-office brand, not a marketplace seller</p>
+      <p class="why">Best value in the whole guide. Breathable high mesh back with built-in lumbar support, pneumatic height, tilt-lock and tilt-tension — the actual ergonomic fundamentals — at roughly half what the fancier model costs, with a higher rating and five times the reviews. The flip-up arms are the studio-specific win: fold them up and the chair tucks completely under a 20"-deep desk, so it stops eating floor space when he's not working. The 4" seat cushion is noticeably plusher than the pricier sibling's 1". Recurring criticism is that the lumbar curve is fixed, so it doesn't land right for everyone.</p>
+      <div class="specs"><span>Seat 18.5–22.5" high</span><span>250 lb capacity</span><span>Flip-up arms</span><span>Tilt lock + tension</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/flash-furniture-high-back-mesh-ergonomic-swivel-office-chair-with-flip-up-arms/-/A-81952833" target="_blank" rel="noopener">View on Target — $136.94 →</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="alt-row"><b>If he codes 8+ hours a day, upgrade the chair:</b> the Flash Furniture LO adds separately <b>adjustable</b> lumbar, 2-to-1 synchro-tilt, an adjustable headrest and pivoting arms — the full ergonomic kit — for <b>$260.94</b> → <a href="https://www.target.com/p/flash-furniture-lo-ergonomic-mesh-office-chair-with-2-to-1-synchro-tilt-adjustable-headrest-lumbar-support-and-adjustable-pivot-arms-in-black/-/A-81952895" target="_blank" rel="noopener">product page</a>. It rates 5.0★ but on only 7 reviews, so that number is thin evidence; the spec sheet is what justifies it, not the rating. <b>Avoid</b> Target's "ergonomic office chair" category page generally — it's dominated by Costway/Bestier/Garvee marketplace listings with inflated strikethrough pricing.</p>
+</section>
+
+<!-- ══════════ 04 STORAGE ══════════ -->
+<section id="storage">
+  <div class="sec-head"><span class="no">04</span><h2>Storage — cabinet</h2><p class="hint">Solid doors, not mesh or glass</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_342f5333-c418-47be-ab6f-0fb187dc93f6" alt="Threshold Elloree storage cabinet, navy">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>Elloree Storage Cabinet <small>Threshold™ · 30" × 14" × 32" · Navy · solid doors, pine frame</small></h3>
+        <span class="price"><s>$200</s>$160.00</span>
+      </div>
+      <p class="stars"><b>4.55★</b> · 55 reviews · Target owned brand = 1-year returns</p>
+      <p class="why">Half the price of the fancier option with seven times the review base and a stronger rating. Two genuinely solid front doors — no mesh, no glass — which is the entire point of buying a cabinet for a studio: what's inside stops being visible. The 146 lb tabletop rating is the highest in its class, so the top holds a TV, a microwave, or a full coffee setup next to the kitchenette. Reviewers repeatedly say it "feels like solid wood." One spec miss: the interior shelves are fixed, not adjustable. Go slow on the back-panel screws — a few reviewers split the panel by over-torquing.</p>
+      <div class="specs"><span>30"W × 14"D × 32"H</span><span>Solid doors</span><span>146 lb tabletop</span><span>Fixed shelves</span><span>41.9 lb</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/elloree-storage-cabinet-navy-threshold-8482/-/A-79631133" target="_blank" rel="noopener">View on Target — $160 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="photo">
+      <span class="tag alt-tag">Upgrade</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_4336bbe3-538a-48ef-ace9-5ecfef2ad89f" alt="Threshold Lupine reeded two door storage cabinet, dark brown">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>Lupine Reeded Two-Door Storage Cabinet <small>Threshold™ · 34.25" × 15.75" × 30.25" · Dark brown · adjustable shelf</small></h3>
+        <span class="price">$280.00</span>
+      </div>
+      <p class="stars"><b>4.6★</b> · 8 reviews — new listing, so the rating is early evidence</p>
+      <p class="why">The one Threshold cabinet that hits both requirements at once: fully opaque solid-wood doors <em>and</em> an adjustable shelf. It also has a cable-management cutout, which turns it into a media console or a router-and-charger hideaway — useful when every surface in a studio has to do two jobs. Reviewers praise the build (one insists it's veneered plywood and solid wood rather than MDF); the recurring note is a strong varnish smell that needs a few days to air out.</p>
+      <div class="specs"><span>34.25"W × 15.75"D × 30.25"H</span><span>1 adjustable shelf</span><span>Cable cutout</span><span>50 lb top</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/lupine-reeded-two-door-storage-cabinet-with-adjustable-shelf-and-cable-management-dark-brown-threshold-8482/-/A-94693397" target="_blank" rel="noopener">View on Target — $280 →</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="alt-row"><b>Careful with the two most-reviewed Threshold cabinets</b> — both fail the hide-the-clutter test. The <b>Warwick</b> (4.32★, 1,048 reviews, $200) has <b>mesh see-through doors</b>, and reviewers complain specifically about the lack of privacy; the <b>New Bedford</b> (4.15★, 497 reviews, $160) has <b>glass doors</b>. Great cabinets if he wants display storage, wrong ones if he wants things hidden.</p>
+</section>
+
+<!-- ══════════ 05 LOUNGE ══════════ -->
+<section id="lounge">
+  <div class="sec-head"><span class="no">05</span><h2>Lounge — small sofa</h2><p class="hint">61" is about as small as a real 2-seater gets</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_ea1d12b3-ce82-49d6-95fa-0737b07da4e4" alt="Serta 61 inch Palisades loveseat">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>Serta 61" Palisades Loveseat <small>61" W × 32.5" D · 16 fabric colorways · pocket-coil seat · washable covers</small></h3>
+        <span class="price">$382.99</span>
+      </div>
+      <p class="stars"><b>3.7★</b> · 60 reviews · 76% would recommend — the softest rating in this guide, deliberately shown</p>
+      <p class="why">Ships compressed in a single box and assembles tool-free in about 20 minutes, and reviewers specifically confirm it clears tight New York doorways and stairwells — a constraint that kills a lot of sofa purchases in this city. The cushion covers come off and go in the washing machine, which is the single most useful feature in a first apartment, and the pocket-coil seat is rated to 450 lb. Be clear-eyed on the trade-off, though: the 20.5" seat depth is shallow, reviews split on comfort, and one reviewer's verdict was "like sitting on an inflatable couch." It's a sit-and-watch-TV sofa, not a nap sofa. If deep comfort matters more than price, IKEA's KIVIK at $849 is the better piece.</p>
+      <div class="specs"><span>61"W × 32.5"D × 35"H</span><span>Machine-washable covers</span><span>450 lb capacity</span><span>Tool-free, ~20 min</span><span>90.2 lb</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/61-palisades-loveseat-serta/-/A-81024310" target="_blank" rel="noopener">View on Target — $382.99 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="photo">
+      <span class="tag alt-tag">If guests will stay over</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_5c4dd838-9043-4109-9506-4dea5428b572" alt="Serta Harriet convertible loveseat, woven charcoal">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>Serta Harriet Convertible Loveseat <small>66.5" W · converts to a full-size pull-out bed · woven charcoal</small></h3>
+        <span class="price"><s>$854.99</s>$726.99</span>
+      </div>
+      <p class="stars"><b>5.0★</b> · only 4 reviews — thin evidence, but Serta is an established brand</p>
+      <p class="why">A genuine full-size pull-out at 66.5" wide, with a solid hardwood frame and a 750 lb capacity — the highest of anything in this guide. This is the piece that solves "a friend is crashing in the studio" without the dorm-room futon look, and the fold-out has a finger-guard mechanism. Two caveats worth taking seriously: only four reviews so far, and it weighs 200 lb, so if the building has any stairs in the path, budget for that.</p>
+      <div class="specs"><span>66.5"W × 37.2"D × 38"H</span><span>Full-size sleeper</span><span>750 lb capacity</span><span>Arms-only assembly</span><span>200.4 lb</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/serta-harriet-convertible-loveseat-woven-charcoal/-/A-93534127" target="_blank" rel="noopener">View on Target — $726.99 →</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="alt-row"><b>A note on Target's loveseat aisle:</b> the Threshold and Studio McGee options mostly don't hold up on inspection — Bellfield has 1 review at 1 star, Vernon is only 49.8" wide (an accent chair pretending to be a sofa), and Vivian Park's reviews report fabric pilling and frame creaking at $900. The Novogratz Collette slipcover loveseat is genuinely well matched to this brief but is <b>out of stock</b>. Serta is the right brand here by process of elimination.</p>
+</section>
+
+<!-- ══════════ 06 DINE ══════════ -->
+<section id="dine">
+  <div class="sec-head"><span class="no">06</span><h2>Dine — table for two</h2><p class="hint">Round beats square when the walkway is tight</p></div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_4d7e7ac9-6b4f-4bf2-b03b-76425acd513c" alt="Threshold 42 inch Clarksburg cross leg round wood dining table">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>42" Clarksburg Cross-Leg Round Dining Table <small>Threshold™ · 42" round × 29.9" H · rubberwood frame, medium brown</small></h3>
+        <span class="price">$250.00</span>
+      </div>
+      <p class="stars"><b>4.2★</b> · 173 reviews · Target owned brand = 1-year returns</p>
+      <p class="why">Round is the correct geometry for a studio: no corners to catch a hip when squeezing past, and a 42" top seats two daily but flexes to four when friends come over. Rubberwood rather than particleboard at this price is a genuine step up from the bottom of the market.</p>
+      <div class="specs"><span>42.1" diameter × 29.9" H</span><span>Seats 2 (4 at a squeeze)</span><span>Rubberwood + MDF top</span><span>Tools included</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/42-clarksburg-cross-leg-wood-dining-table-round-threshold/-/A-1010694099" target="_blank" rel="noopener">View on Target — $250 →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card pick">
+    <div class="photo">
+      <span class="tag pick-tag">Our pick</span>
+      <img src="https://target.scene7.com/is/image/Target/GUEST_b7b7c078-76db-4a1c-8295-59d65691d403" alt="Threshold Hassell wood dining chairs, set of 2, black">
+    </div>
+    <div class="body">
+      <div class="top">
+        <h3>Hassell Wood Dining Chair, Set of 2 <small>Threshold™ · Black or natural · rubberwood · 18" seat height</small></h3>
+        <span class="price">$180.00</span>
+      </div>
+      <p class="stars"><b>4.59★</b> · 113 reviews — the best-rated Threshold chair 2-pack on the site</p>
+      <p class="why">Rubberwood, not particleboard, at $90 a chair, and the 18" floor-to-seat height is a correct match for the Clarksburg's 29.9" table height — a pairing that sounds obvious but which plenty of mismatched "sets" get wrong. Rated to 250 lb each. If these sell out, the Threshold Windsor 2-pack at $200 (4.3★, 614 reviews) is the safe substitute.</p>
+      <div class="specs"><span>34"H × 17"W × 19.25"D</span><span>18" seat height</span><span>250 lb each</span><span>Rubberwood</span></div>
+      <div class="cta">
+        <a class="btn" href="https://www.target.com/p/set-of-2-hassell-wood-dining-chair-threshold/-/A-77642159" target="_blank" rel="noopener">View on Target — $180 →</a>
+        <a class="btn ghost" href="https://www.target.com/p/set-of-2-windsor-dining-chair-threshold-153/-/A-15744178" target="_blank" rel="noopener">Backup: Windsor 2pk, $200</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="alt-row"><b>Best space-saving move in the whole guide:</b> the Hammis Round Drop-Leaf Table by Signature Design by Ashley — <b>$118.99</b> (reg $139.99), <b>4.41★ across 230 reviews</b> → <a href="https://www.target.com/p/hammis-round-drop-leaf-dining-table-wood-dark-brown-signature-design-by-ashley/-/A-49175633" target="_blank" rel="noopener">product page</a>. Two 7" leaves fold down so it lives flat against a wall at roughly 22" deep most days, then opens to a full 36" round when someone's over. Paired with the same Hassell chairs the whole dining corner is <b>$298.99</b> — $131 less than the primary pick, and arguably better suited to a studio. <b>Avoid</b> the Threshold Astrid extension table: 3.73★ over 241 reviews with repeated finish-durability complaints, and at 60" it's too long for this room anyway.</p>
+</section>
+
+<!-- ══════════ 07 DON'T FORGET ══════════ -->
+<section id="extras">
+  <div class="sec-head"><span class="no">07</span><h2>Don't forget</h2><p class="hint">Roughly $950 of things that are easy to overlook</p></div>
+  <div class="extras">
+    <div class="x"><h4>Nightstand</h4><span class="amt">$180</span><p>Pelham Nightstand, white — 4.55★ / 150 reviews, three drawers, 26"H. <a href="https://www.target.com/p/pelham-nightstand-white-threshold-8482/-/A-52806273" target="_blank" rel="noopener">Threshold Pelham →</a></p></div>
+    <div class="x"><h4>Bedding bundle</h4><span class="amt">$227</span><p>Casaluna bamboo sheet set ($80, 4.1★), lightweight down-alt comforter ($100, 4.61★ / 878), two pillows ($35), waterproof protector ($12). <a href="https://www.target.com/p/full-queen-light-weight-premium-down-alternative-comforter-casaluna-8482/-/A-78299630" target="_blank" rel="noopener">Start with the comforter →</a> <em>Skip the Casaluna percale sheets — 2.85★, reviewers call them "crunchy."</em></p></div>
+    <div class="x"><h4>Lighting</h4><span class="amt">$70</span><p>Londonberry stick floor lamp, black — 4.38★ / 262. NYC rentals rarely have overhead light in the main room. Bulb not included. <a href="https://www.target.com/p/62-5-34-x16-34-londonberry-stick-floor-lamp-black-threshold-8482/-/A-79585728" target="_blank" rel="noopener">Threshold Londonberry →</a></p></div>
+    <div class="x"><h4>Rug</h4><span class="amt">$100</span><p>Eliot Geo 5'×7' in tan/beige/gray — 4.3★ / 446, low pile so dining chairs slide over it. Buy a rug pad too; it has no backing. <a href="https://www.target.com/p/eliot-geo-area-rug-threshold/-/A-79696322" target="_blank" rel="noopener">Threshold Eliot Geo →</a></p></div>
+    <div class="x"><h4>Kitchen starter</h4><span class="amt">$275</span><p>Cuisinart 11pc non-stick set ($149.99, 4.57★ — induction-compatible, which newer Manhattan buildings need), Threshold 16pc dinnerware ($70, 4.32★), Rubbermaid Brilliance 22pc ($54.99, 4.5★ / 1,580). <a href="https://www.target.com/p/cuisinart-advantage-11pc-non-stick-cookware-set-55-11bk/-/A-51784040" target="_blank" rel="noopener">Cookware →</a></p></div>
+    <div class="x"><h4>Full-length mirror</h4><span class="amt">$100</span><p>20"×65" arch floor mirror, natural — 4.07★ / 131, leans freestanding so no drilling into a rental wall. Inspect on arrival; frame damage in transit is the common complaint. <a href="https://www.target.com/p/20-34-x-65-34-arch-floor-mirror-natural-threshold-8482/-/A-88117851" target="_blank" rel="noopener">Threshold arch mirror →</a></p></div>
+  </div>
+</section>
+
+<!-- ══════════ PRACTICAL ══════════ -->
+<div class="notes">
+  <h2>Buying it in NYC — practical notes</h2>
+  <p><b>Pick the delivery tier carefully — you cannot change it after ordering.</b> Target offers three: <b>To-the-Door</b> (free, left outside the unit), <b>Inside-the-Door</b> ($15–$150, scheduled, adult signature required), and <b>Room of Choice</b> ($40–$200, includes up/down stairs). Everything on this list is light enough — heaviest is the 200 lb sleeper sofa, then the mattress at 80 lb — that free To-the-Door is the sensible choice for most of it.</p>
+  <p><b>Call the carrier before the building calls you.</b> Target's furniture carrier is EFW: <b>1-855-633-9669</b>, target@efwnow.com. Most Manhattan buildings require a certificate of insurance from the delivery company and a booked service-elevator window. Target's own guidance is to communicate apartment restrictions directly to the carrier, so do that the same day you order.</p>
+  <p><b>Assembly is not included in any tier.</b> Target sells it separately through Handy at about <b>$69 per medium item</b> — poor value on this list, since the desk top ships pre-assembled, the sofa is tool-free, the mirror and lamp need no assembly, and the table and chairs ship with the tools. The mattress and bed frame are the only two-person jobs.</p>
+  <p><b>Returns are unusually generous on Target's own brands.</b> Threshold, Casaluna and Room Essentials carry a <b>full year</b>. Everything else is <b>90 days</b> — with one trap: the Ashley Chime mattress is only <b>30 days</b>. Check the Shipping &amp; Returns block on each listing before buying.</p>
+  <p><b>Get a Target Circle Card before checkout.</b> It's an extra <b>5% off</b> (about $98 on this cart), free 2-day shipping, and 30 extra days on returns. Free Target Circle membership alone gets some of the deal pricing. <b>Target Circle 360</b> is $99/year — but only <b>$4.99/month for verified students</b>, and a recent grad may still qualify; there's a 14-day free trial that covers a single furnishing spree nicely.</p>
+</div>
+
+<footer>
+  Prices, star ratings, review counts and stock status were verified directly on target.com on August 9, 2026. Retail prices and promotions change frequently and review counts move daily — the linked product pages are always authoritative. Where a rating rests on a small number of reviews, that has been called out in the text rather than hidden. Product photos © Target Brands, Inc., loaded directly from target.com. Companion guide: <a href="ikea.html">the IKEA version of this list</a>.
+</footer>
+
+</div>
+</body>
+</html>
